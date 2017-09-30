@@ -29,26 +29,7 @@ public class LocaleManager {
     private File directory;
 
     public LocaleManager(String directoryPath) {
-        // Save instance for further use
-        instance = this;
-
-        if (directory == null || directoryPath.equalsIgnoreCase("")) {
-            return;
-        }
-
-        this.directory = new File(directoryPath);
-
-        if (!directory.isDirectory()) {
-            if (!directory.mkdir()) {
-                try {
-                    throw new Exception("cannot create directory");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        initLocales();
+        this(new File(directoryPath));
     }
 
     public LocaleManager(File directory) {

@@ -37,7 +37,7 @@ public class Locale {
 
         for (Map.Entry entry : this.getLocaleFile().getAll().entrySet()) {
             String key = (String) entry.getKey();
-            String value = (String) entry.getValue();
+            String value = String.valueOf(entry.getValue());
 
             getMessages().put(key, value);
         }
