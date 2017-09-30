@@ -19,6 +19,7 @@ public class LocaleManager {
     private static LocaleManager instance;
 
     @Getter
+    @Setter
     private Locale defaultLocale;
 
     @Getter
