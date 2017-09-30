@@ -138,7 +138,7 @@ public class LocaleManager {
         String message = locale.getMessages().getOrDefault(key, "error while translating, '" + key + "'");
 
         for (int i = 0; i < args.length; i++) {
-            message = message.replaceAll("{" + i + "}", "" + args[i]);
+            message = message.replaceAll("\\{" + i + "}", "" + args[i]);
         }
 
         return message;
