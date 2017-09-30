@@ -114,7 +114,7 @@ public class LocaleManager {
      * @param args         optional arguments to replace
      * @return translated message
      */
-    public String translate(String languageCode, String key, Object... args) {
+    public String getTranslatedMessage(String languageCode, String key, Object... args) {
         Locale locale = getLocale(languageCode);
 
         // Check if no locales was loaded
@@ -123,6 +123,18 @@ public class LocaleManager {
             return "error while translating, '" + key + "'";
         }
 
+        return getTranslatedMessage(locale, key, args);
+    }
+
+    /**
+     * return translated string from the given language, key and args
+     *
+     * @param locale the locale object for translation
+     * @param key    the path in the language files
+     * @param args   optional arguments to replace
+     * @return translated message
+     */
+    public String getTranslatedMessage(Locale locale, String key, Object... args) {
         String message = locale.getMessages().getOrDefault(key, "error while translating, '" + key + "'");
 
         for (int i = 0; i < args.length; i++) {
