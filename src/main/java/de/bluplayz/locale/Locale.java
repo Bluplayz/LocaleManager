@@ -104,7 +104,7 @@ public class Locale {
 
             if (!replace) {
                 if (getLocaleFile().exists(key)) {
-                    return;
+                    continue;
                 }
             }
 
@@ -150,7 +150,7 @@ public class Locale {
         boolean edited = false;
         for (String key : translations) {
             if (!getLocaleFile().exists(key)) {
-                return;
+                continue;
             }
 
 
