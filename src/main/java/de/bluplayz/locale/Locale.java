@@ -22,7 +22,7 @@ public class Locale {
         this.name = name;
 
         // Store config file
-        localeFile = new LocaleFile(LocaleManager.getInstance().getDirectory() + "/" + this.getName() + ".properties", LocaleFile.PROPERTIES);
+        localeFile = new LocaleFile(LocaleManager.getInstance().getDirectory() + "/" + this.getName() + ".yml", LocaleFile.YAML);
 
         // Load messages
         load();
