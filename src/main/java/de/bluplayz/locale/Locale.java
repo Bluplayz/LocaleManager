@@ -6,6 +6,7 @@ import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Locale {
@@ -18,11 +19,11 @@ public class Locale {
     @Getter
     private HashMap<String, String> messages = new HashMap<>();
 
-    public Locale(String name) {
+    public Locale( String name ) {
         this.name = name;
 
         // Store config file
-        localeFile = new LocaleFile(LocaleManager.getInstance().getDirectory() + "/" + this.getName() + ".yml", LocaleFile.YAML);
+        localeFile = new LocaleFile( LocaleManager.getInstance().getDirectory() + "/" + this.getName() + ".properties", LocaleFile.PROPERTIES );
 
         // Load messages
         load();
@@ -35,11 +36,11 @@ public class Locale {
         // Clear map before adding data
         this.messages = new HashMap<>();
 
-        for (Map.Entry entry : this.getLocaleFile().getAll().entrySet()) {
+        for ( Map.Entry entry : this.getLocaleFile().getAll().entrySet() ) {
             String key = (String) entry.getKey();
-            String value = String.valueOf(entry.getValue());
+            String value = String.valueOf( entry.getValue() );
 
-            getMessages().put(key, value);
+            getMessages().put( key, value );
         }
     }
 
@@ -47,11 +48,11 @@ public class Locale {
     /**
      * add the specified translation to the file and replace if already exist
      *
-     * @param key the key from the translation
+     * @param key   the key from the translation
      * @param value the value from the translation
      */
-    public void addTranslation(String key, String value) {
-        addTranslation(key, value, true);
+    public void addTranslation( String key, String value ) {
+        addTranslation( key, value, true );
     }
 
     /**
@@ -59,29 +60,29 @@ public class Locale {
      *
      * @param translations the map with all translation keys and values
      */
-    public void addTranslations(HashMap<String, String> translations) {
-        addTranslations(translations, true);
+    public void addTranslations( LinkedHashMap<String, String> translations ) {
+        addTranslations( translations, true );
     }
 
     /**
      * add the specified translations to the file
      *
-     * @param key the key from the translation
-     * @param value the value from the translation
+     * @param key     the key from the translation
+     * @param value   the value from the translation
      * @param replace if the key already exist should they be replaced with given translation
      */
-    public void addTranslation(String key, String value, boolean replace) {
-        if (getLocaleFile() == null) {
+    public void addTranslation( String key, String value, boolean replace ) {
+        if ( getLocaleFile() == null ) {
             return;
         }
 
-        if (!replace) {
-            if (getLocaleFile().exists(key)) {
+        if ( !replace ) {
+            if ( getLocaleFile().exists( key ) ) {
                 return;
             }
         }
 
-        getLocaleFile().set(key, value);
+        getLocaleFile().set( key, value );
         getLocaleFile().save();
         load();
     }
@@ -90,29 +91,29 @@ public class Locale {
      * add the specified translations to the file
      *
      * @param translations the map with all translation keys and values
-     * @param replace if the keys already exists should they be replaced with given translations
+     * @param replace      if the keys already exists should they be replaced with given translations
      */
-    public void addTranslations(HashMap<String, String> translations, boolean replace) {
-        if (getLocaleFile() == null) {
+    public void addTranslations( LinkedHashMap<String, String> translations, boolean replace ) {
+        if ( getLocaleFile() == null ) {
             return;
         }
 
         boolean edited = false;
-        for (Map.Entry entry : translations.entrySet()) {
+        for ( Map.Entry entry : translations.entrySet() ) {
             String key = (String) entry.getKey();
             String value = (String) entry.getValue();
 
-            if (!replace) {
-                if (getLocaleFile().exists(key)) {
+            if ( !replace ) {
+                if ( getLocaleFile().exists( key ) ) {
                     continue;
                 }
             }
 
-            getLocaleFile().set(key, value);
+            getLocaleFile().set( key, value );
             edited = true;
         }
 
-        if (edited) {
+        if ( edited ) {
             getLocaleFile().save();
             load();
         }
@@ -123,16 +124,16 @@ public class Locale {
      *
      * @param key the key which should deleted
      */
-    public void removeTranslation(String key) {
-        if (getLocaleFile() == null) {
+    public void removeTranslation( String key ) {
+        if ( getLocaleFile() == null ) {
             return;
         }
 
-        if (!getLocaleFile().exists(key)) {
+        if ( !getLocaleFile().exists( key ) ) {
             return;
         }
 
-        getLocaleFile().remove(key);
+        getLocaleFile().remove( key );
         getLocaleFile().save();
         load();
     }
@@ -142,23 +143,23 @@ public class Locale {
      *
      * @param translations the map with all
      */
-    public void removeTranslations(ArrayList<String> translations) {
-        if (getLocaleFile() == null) {
+    public void removeTranslations( ArrayList<String> translations ) {
+        if ( getLocaleFile() == null ) {
             return;
         }
 
         boolean edited = false;
-        for (String key : translations) {
-            if (!getLocaleFile().exists(key)) {
+        for ( String key : translations ) {
+            if ( !getLocaleFile().exists( key ) ) {
                 continue;
             }
 
 
-            getLocaleFile().remove(key);
+            getLocaleFile().remove( key );
             edited = true;
         }
 
-        if (edited) {
+        if ( edited ) {
             getLocaleFile().save();
             load();
         }
